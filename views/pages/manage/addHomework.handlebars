@@ -1,0 +1,88 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ödev Ekle</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item"><a href="/manage/manageHomework">Ödevleri Yönet</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ödev Ekle</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <form class="form-horizontal" id="formAddHomework" action="/manage/addHomework" method="POST">
+                    <div class="card-body">
+                        <h4 class="card-title">Ödev Bilgileri</h4>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 text-right control-label col-form-label">Ödevin
+                                Adı</label>
+                            <div class="col-sm-9">
+                                <input autocomplete="off" type="text" class="form-control" id="name" name="name"
+                                    placeholder="Ödevin Adı">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Açıklama</label>
+                            <div class="col-sm-9">
+                                <textarea placeholder="Açıklama giriniz" name="description"
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="m-t-15 col-sm-3 text-right">Ödevin Son Tarihi</label>
+                            <div class="input-group col-sm-9">
+                                <input autocomplete="off" type="text" class="form-control" name="lastDate"
+                                    id="lastDate">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}
+
+
+{{#section 'link'}}
+<link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link href="/assets/libs/dropzone/dist/min/basic.min.css" rel="stylesheet">
+<link href="/dist/css/upload.css" rel="stylesheet">
+{{/section}}
+
+<script src="/assets/libs/dropzone/dist/dropzone.js"></script>
+<script src="/dist/js/pages/upload.js"></script>
+<script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.tr.min.js"></script>
+
+<script>
+    jQuery('#lastDate').datepicker({
+        language: 'tr',
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+    });
+
+
+</script>

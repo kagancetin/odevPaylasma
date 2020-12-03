@@ -1,0 +1,69 @@
+<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true ">
+    <div class="modal-dialog" role="document ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Kullanıcı Bilgilerini Düzenle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true ">&times;</span>
+                </button>
+            </div>
+            <form class="form-horizontal" method="post"
+                action="/users/updateInfo/{{userInfo._id}}?ref=users/profile/{{userInfo.username}}">
+                <div class="modal-body">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label for="fullName" class="col-sm-3 text-right control-label col-form-label">Ad
+                                Soyad</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="fullName" name="fullName"
+                                    value="{{userInfo.fullName}}" placeholder="Ad soyad">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-3 text-right control-label col-form-label">Kullanıcı
+                                Adı</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="{{userInfo.username}}" placeholder="Kullanıcı Adı">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 text-right control-label col-form-label">E-mail</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="email" name="email"
+                                    value="{{userInfo.email}}" placeholder="E-mail">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="phoneNumber" class="col-sm-3 text-right control-label col-form-label">Telefon
+                                Numarası</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control phone-inputmask" id="phoneNumber"
+                                    name="phoneNumber" value="{{userInfo.phoneNumber}}" placeholder="Telefon Numarası">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 text-right control-label col-form-label">Kullanıcı Tipi</label>
+                            <div class="col-sm-9">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="type0" value="0"
+                                        {{#ifCond userInfo.type '==' 0}} checked {{/ifCond}} name="type">
+                                    <label class="custom-control-label" for="type0">Yönetici</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="type1" value="1"
+                                        {{#ifCond userInfo.type '==' 1}} checked {{/ifCond}} name="type">
+                                    <label class="custom-control-label" for="type1">Öğrenci</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="Submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

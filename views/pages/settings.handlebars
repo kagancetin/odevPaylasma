@@ -1,0 +1,196 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ayarlar</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ayarlar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <form class="form-horizontal" method="post" action="/users/updateInfo/{{userActive._id}}?ref=settings">
+                    <div class="card-body">
+                        <h4 class="card-title">Bilgilerimi Güncelle</h4>
+                        <div class="form-group row">
+                            <label for="fullName" class="col-sm-3 text-right control-label col-form-label">Ad
+                                Soyad</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="fullName" name="fullName"
+                                    value="{{{fullName}}}" placeholder="Ad soyad">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-3 text-right control-label col-form-label">Kullanıcı
+                                Adı</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="username" name="username"
+                                    value="{{{username}}}" placeholder="Kullanıcı Adı">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 text-right control-label col-form-label">E-mail</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="email" name="email" value="{{{email}}}"
+                                    placeholder="E-mail">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="phoneNumber" class="col-sm-3 text-right control-label col-form-label">Telefon
+                                Numarası</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control phone-inputmask" id="phoneNumber"
+                                    name="phoneNumber" value="{{{phoneNumber}}}" placeholder="Telefon Numarası">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#passcheck">Bilgilerimi Güncelle</button>
+                        </div>
+
+                    </div>
+                    <div class="modal fade" id="passcheck" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true ">
+                        <div class="modal-dialog" role="document ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Bilgilerinizi güncelliyorsunuz!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true ">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Bilgilerinizi güncellemek istediğinizden emin misiniz?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="Submit" class="btn btn-primary">Bilgilerimi Güncelle</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card">
+                <form class="form-horizontal" method="post" action="/users/updatePassword">
+                    <div class="card-body">
+                        <h4 class="card-title">Şifremi Değiştir</h4>
+                        <div class="form-group row">
+                            <label for="newPassword" class="col-sm-3 text-right control-label col-form-label">Yeni
+                                Şifre</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                    placeholder="Yeni Şifre">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="renewPassword" class="col-sm-3 text-right control-label col-form-label">Yeni
+                                Şifre
+                                Doğrulama</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" id="renewPassword" name="renewPassword"
+                                    placeholder="Yeni Şifre Doğrulama">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#updatePassword">Şifremi Değiştir</button>
+                        </div>
+
+                    </div>
+                    <div class="modal fade" id="updatePassword" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true ">
+                        <div class="modal-dialog" role="document ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Emin misiniz?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true ">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Güvenliğiniz için doğrulama yapmak zorundayız.</p>
+
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        placeholder="Şifrenizi giriniz.">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                        aria-label="Close">
+                                        İptal
+                                    </button>
+                                    <button type="Submit" class="btn btn-primary">Eminim</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <form class="form-horizontal" enctype="multipart/form-data" method="post"
+                    action="/users/updateProfilPhoto">
+                    <div class="card-body">
+                        <h4 class="card-title">Profil Resmimi Değiştir</h4>
+                        <div class="p-3 text-center">
+                            <div class="logo-container" style="width:44%; min-width:150px;">
+                                <img src="{{userActive.profilPhoto}}" alt="user" class="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 text-right control-label col-form-label">Yeni Profil Resmi</label>
+                            <div class="col-md-9">
+                                <div class="custom-file">
+                                    <input name="file" type="file" class="custom-file-input" accept="image/*" id="file">
+                                    <label class="custom-file-label" for="file">Resim Seç</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary">Profil Resmimi Değiştir</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}
+
+<script>
+    // Add the following code if you want the name of the file appear on select
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+<!-- Phone Number input-mask
+<script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+<script src="/dist/js/pages/mask/mask.init.js"></script>
+
+-->

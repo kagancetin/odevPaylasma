@@ -1,0 +1,136 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ödevleri Yönet</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ödevleri Yönet</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-md-12" style="margin-bottom: 10px;">
+            <a href="/manage/addHomework" type="button" class="btn btn-primary margin-5">
+                Ödev Ekle
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{#if homeworks}}
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title m-b-0">Ödev Listesi</h4>
+                </div>
+                <div class="comment-widgets scrollable">
+                    <!-- Comment Row -->
+                    {{#each homeworks}}
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="logo-container" style="width:75px">
+                            <img src="{{uploader.profilPhoto}}" alt="user" class="">
+                        </div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">{{name}} <span class="text-muted">({{uploadDate}})</span> </h6>
+                            <span class="m-b-15 d-block"> {{description}} </span>
+                            <div class="comment-footer">
+                                <span class="text-muted float-right">En geç teslim tarihi: {{lastDate}}</span>
+                                <a href="/manage/editHomework/{{_id}}" type="button"
+                                    class="btn btn-primary btn-sm">Ödevi Düzenle</a>
+                                <a href="" type="button" class="btn btn-warning btn-sm">Ödevi Gizle</a>
+                                <a href="" type="button" class="btn btn-danger btn-sm">Ödevi Sil</a>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div>
+            {{else}}
+            <p>Ödev bulunmamaktadır.</p>
+            {{/if}}
+
+        </div>
+
+
+        <div class="col-md-12 d-none">
+            <div class="card">
+                <div id="actions" class="card-body">
+                    <span class="btn btn-success fileinput-button dz-clickable">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Dosya Ekle</span>
+                    </span>
+                    <button type="submit" class="btn btn-primary start">
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Bütün Dosyaları Yükle</span>
+                    </button>
+                    <button type="reset" class="btn btn-warning cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Tümünü İptal Et</span>
+                    </button>
+                </div>
+                <div class="comment-widgets scrollable" class="files" id="previews">
+
+                    <div id="template" class="file-row d-flex flex-row comment-row m-t-0">
+                        <!-- This is used as the file preview template -->
+                        <div class="p-2">
+                            <span class="preview"><img data-dz-thumbnail /></span>
+                        </div>
+                        <div class="comment-text w-100">
+                            <div>
+                                <p class="name font-medium" data-dz-name></p>
+                                <strong class="error text-danger" data-dz-errormessage></strong>
+                            </div>
+                            <div>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                    aria-valuemax="100" aria-valuenow="0">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;"
+                                        data-dz-uploadprogress>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="comment-footer">
+                                <span class="text-muted float-right size" data-dz-size></span>
+                                <button class="btn btn-success btn-sm start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Başla</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-danger btn-sm cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>İptal Et</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-cyan btn-sm delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span>Listeden Kaldır</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}
+
+{{#section 'link'}}
+<link href="/assets/libs/dropzone/dist/min/basic.min.css" rel="stylesheet">
+{{/section}}
+
+{{#section 'style'}}
+<link href="/dist/css/upload.css" rel="stylesheet">
+{{/section}}
+
+<script src="/assets/libs/dropzone/dist/dropzone.js"></script>
+<script src="/dist/js/pages/upload.js"></script>

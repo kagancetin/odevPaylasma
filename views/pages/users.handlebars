@@ -1,0 +1,96 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Kullanıcılar</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Kullanıcılar</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Kullanıcı Listesi</h5>
+            <div class="table-responsive">
+                <table id="userList" class="table table-striped table-bordered">
+                    <thead>
+
+                        <tr>
+                            <th></th>
+                            <th>İsim</th>
+                            <th>E-Mail</th>
+                            <th>Telefon No</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>Kullanıcı Tipi</th>
+                            <th>Son Giriş</th>
+                        </tr>
+                        </a>
+                    </thead>
+                    <tbody>
+
+                        {{#each users}}
+
+                        <tr>
+                            <td><a href="/users/profile/{{username}}">
+                                    <div class="logo-container" style="width:40px">
+                                        <img src="{{profilPhoto}}" alt="user" class="">
+                                    </div>
+                                </a></td>
+                            <td><a href="/users/profile/{{username}}">{{fullName}}</a></td>
+                            <td>{{email}}</td>
+                            <td>{{phoneNumber}}</td>
+                            <td>{{username}}</td>
+                            <td>
+                                {{#ifCond type '==' 0}}
+                                Yönetici
+                                {{/ifCond}}
+                                {{#ifCond type '==' 1}}
+                                Öğrenci
+                                {{/ifCond}}
+                            </td>
+                            <td>eklenecek</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>İsim</th>
+                            <th>E-Mail</th>
+                            <th>Telefon No</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>Kullanıcı Tipi</th>
+                            <th>Son Giriş</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+{{> _footer}}
+
+</div>
+</div>
+{{> _mainScripts }}
+<script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+<script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+<script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
+<script>
+    /****************************************
+     *       Basic Table                   *
+     ****************************************/
+    $('#userList').DataTable();</script>

@@ -1,0 +1,56 @@
+<div class="card">
+    <div id="actions" class="card-body">
+        <span class="btn btn-success fileinput-button dz-clickable">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Add files...</span>
+        </span>
+        <button type="submit" class="btn btn-primary start">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start upload</span>
+        </button>
+        <button type="reset" class="btn btn-warning cancel">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel upload</span>
+        </button>
+    </div>
+    <div class="comment-widgets scrollable" class="files" id="previews">
+
+        <div id="template" class="file-row d-flex flex-row comment-row m-t-0">
+            <!-- This is used as the file preview template -->
+            <div class="p-2">
+                <span class="preview"><img data-dz-thumbnail /></span>
+            </div>
+            <div class="comment-text w-100">
+                <div>
+                    <p class="name font-medium" data-dz-name></p>
+                    <strong class="error text-danger" data-dz-errormessage></strong>
+                </div>
+                <div>
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress>
+                        </div>
+                    </div>
+
+
+                </div>
+                <br>
+                <div class="comment-footer">
+                    <span class="text-muted float-right size" data-dz-size></span>
+                    <button class="btn btn-success btn-sm start">
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Start</span>
+                    </button>
+                    <button data-dz-remove class="btn btn-cyan btn-sm cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Cancel</span>
+                    </button>
+                    <button data-dz-remove class="btn btn-danger btn-sm delete">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

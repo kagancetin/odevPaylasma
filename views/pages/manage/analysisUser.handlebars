@@ -1,0 +1,37 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Profilim</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profilim</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-md-6 col-lg-2 col-xlg-3">
+            {{#withGroup deneme 2}}
+            {{#each this}}
+            {{a}}
+            {{/each}}
+            <br>
+            {{/withGroup}}
+        </div>
+        <!-- Column -->
+        <div class="col-md-6 col-lg-4 col-xlg-3">
+
+        </div>
+    </div>
+</div>
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}

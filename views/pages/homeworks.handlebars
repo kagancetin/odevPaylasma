@@ -1,0 +1,123 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Ödevler</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ödevler</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+
+        {{#if homeworks}}
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title m-b-0">Ödev Listesi</h4>
+                </div>
+                <div class="comment-widgets scrollable">
+                    <!-- Comment Row -->
+                    {{#each homeworks}}
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="logo-container" style="width:75px">
+                            <img src="{{uploader.profilPhoto}}" alt="user" class="">
+                        </div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">{{name}}<span class="text-muted">({{uploadDate}})</span> </h6>
+                            <span class="m-b-15 d-block"> {{description}} </span>
+                            <div class="comment-footer row">
+                                <div class="col-6">
+
+                                    {{#if document}}
+                                    <form id="download-button" action="/homeworks/downloadDocumentHomework/{{_id}}"
+                                        method="post">
+
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            Ödevi İndir
+                                        </button>
+                                    </form>
+                                    {{/if}}
+                                </div>
+                                <div class="col-6">
+                                    {{#each downloader}}
+                                    {{#if user}}
+                                    <form id="download-button" action="/homeworks/completeHomework/{{_id}}"
+                                        method="post">
+                                        <button type="submit" class="btn btn-cyan btn-sm float-right">
+                                            Ödevi Tamamla
+                                        </button>
+                                    </form>
+                                    {{/if}}
+                                    {{/each}}
+                                </div>
+                                <p class="pr-2 pt-2"><span class="text-muted float-right">En geç teslim tarihi:
+                                        {{lastDate}}</span></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title m-b-0">Tamamlanan Ödevler</h4>
+                </div>
+                <div class="comment-widgets scrollable">
+                    <!-- Comment Row -->
+                    {{#each complatedHomeworks}}
+                    <div class="d-flex flex-row comment-row m-t-0">
+                        <div class="logo-container" style="width:75px">
+                            <img src="{{uploader.profilPhoto}}" alt="user" class="">
+                        </div>
+                        <div class="comment-text w-100">
+                            <h6 class="font-medium">{{name}}<span class="text-muted">({{uploadDate}})</span> </h6>
+                            <span class="m-b-15 d-block"> {{description}} </span>
+                            <div class="comment-footer row">
+                                <div class="col-6">
+
+                                    {{#if document}}
+                                    <form id="download-button" action="/homeworks/downloadDocumentHomework/{{_id}}"
+                                        method="post">
+
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            Ödevi İndir
+                                        </button>
+                                    </form>
+                                    {{/if}}
+                                </div>
+                                {{#each downloader}}
+                                {{#if user}}
+                                <p class="pr-2 pt-2"><span class="text-muted float-right">Tamamlanma tarihi:
+                                        {{done}}</span></p>
+                                {{/if}}
+                                {{/each}}
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}

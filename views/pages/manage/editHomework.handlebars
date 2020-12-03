@@ -1,0 +1,254 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Profilim</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item"><a href="/manage/manageHomework">Ödevleri Yönet</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Ödev Düzenle</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Column -->
+        <div class="col-12">
+            <div class="card">
+                <form class="form-horizontal" id="formAddHomework" action="/manage/editHomework" method="POST">
+                    <div class="card-body">
+                        <h4 class="card-title">Ödev Bilgileri</h4>
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 text-right control-label col-form-label">Ödevin
+                                Adı</label>
+                            <div class="col-sm-9">
+                                <input autocomplete="off" type="text" class="form-control" id="name" name="name"
+                                    value="{{homework.name}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Açıklama</label>
+                            <div class="col-sm-9">
+                                <textarea placeholder="Açıklama giriniz" name="description"
+                                    class="form-control">{{homework.description}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="m-t-15 col-sm-3 text-right">Ödevin Son Tarihi</label>
+                            <div class="input-group col-sm-9">
+                                <input value="{{homework.lastDate}}" type="text" class="form-control" name="lastDate"
+                                    id="lastDate">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-top">
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary">Değiştir</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{#if homework.document}}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title m-b-0">Ödev Dosyaları</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr class="d-flex">
+                                <th class="col-1">Seç</th>
+                                <th class="col-9">Dosya Adı</th>
+                                <th class="col-2"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="documentList" class="customtable">
+                            {{#each homework.document}}
+                            <tr class="d-flex">
+                                <th class="col-1">
+                                    <label class="customcheckbox">
+                                        <input type="checkbox" class="listCheckbox">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </th>
+                                <td class="col-9">{{name}}</td>
+                                <td class="col-2 text-right" scope="col">
+                                    <a class="btn btn-success btn-sm" href="{{path}}" download>İndir</a>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        <div class="col-12">
+            <div class="card">
+                <div id="actions" class="card-body">
+                    <span class="btn btn-success fileinput-button dz-clickable">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Dosya Ekle</span>
+                    </span>
+                    <button type="submit" class="btn btn-primary start">
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Bütün Dosyaları Yükle</span>
+                    </button>
+                    <button type="reset" class="btn btn-warning cancel">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        <span>Tümünü İptal Et</span>
+                    </button>
+                </div>
+                <div class="comment-widgets scrollable" class="files" id="previews">
+
+                    <div id="template" class="file-row d-flex flex-row comment-row m-t-0">
+                        <!-- This is used as the file preview template -->
+                        <div class="p-2">
+                            <span class="preview"><img data-dz-thumbnail /></span>
+                        </div>
+                        <div class="comment-text w-100">
+                            <div>
+                                <p class="name font-medium" data-dz-name></p>
+                                <strong class="error text-danger" data-dz-errormessage></strong>
+                            </div>
+                            <div>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                    aria-valuemax="100" aria-valuenow="0">
+                                    <div class="progress-bar progress-bar-success" style="width:0%;"
+                                        data-dz-uploadprogress>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="comment-footer">
+                                <span class="text-muted float-right size" data-dz-size></span>
+                                <button class="btn btn-success btn-sm start">
+                                    <i class="glyphicon glyphicon-upload"></i>
+                                    <span>Başla</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-danger btn-sm cancel">
+                                    <i class="glyphicon glyphicon-ban-circle"></i>
+                                    <span>İptal Et</span>
+                                </button>
+                                <button data-dz-remove class="btn btn-cyan btn-sm delete">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span>Listeden Kaldır</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{#if homework.downloader}}
+        {{#each homework.downloader}}
+        <p>{{username}}</p>
+        {{/each}}
+        {{/if}}
+
+    </div>
+</div>
+
+
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}
+
+
+
+{{#section 'link'}}
+<link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link href="/assets/libs/dropzone/dist/min/basic.min.css" rel="stylesheet">
+<link href="/dist/css/upload.css" rel="stylesheet">
+{{/section}}
+
+<script src="/assets/libs/dropzone/dist/dropzone.js"></script>
+<script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.tr.min.js"></script>
+
+<script>
+    jQuery('#lastDate').datepicker({
+        language: 'tr',
+        format: 'dd/mm/yyyy',
+        autoclose: true,
+        todayHighlight: true,
+    });
+
+    var previewNode = document.querySelector("#template");
+    previewNode.id = "";
+    var previewTemplate = previewNode.parentNode.innerHTML;
+    previewNode.parentNode.removeChild(previewNode);
+
+    var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+        url: "/manage/manageHomework/uploadDocumentHomework/{{homework._id}}", // Set the url
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
+        parallelUploads: 20,
+        previewTemplate: previewTemplate,
+        autoQueue: false, // Make sure the files aren't queued until manually added
+        previewsContainer: "#previews", // Define the container to display the previews
+        clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        myDropzone.on("addedfile", function (file) {
+            // Hookup the start button
+            file.previewElement.querySelector(".start").onclick = function () { myDropzone.enqueueFile(file); };
+        });
+
+        myDropzone.on("sending", function (file) {
+            // And disable the start button
+            file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+        });
+
+        myDropzone.on("success", function (file, response) {
+            console.log(response.data);
+            if (response.data) {
+                toastr.success(response.message, 'Başarılı');
+                var documentList = document.getElementById("documentList");
+                console.log(response.data.document[-1]);
+                documentList.innerHTML += '<tr class="d-flex">\
+                                <th class="col-1">\
+                                    <label class="customcheckbox">\
+                                        <input type="checkbox" class="listCheckbox">\
+                                        <span class="checkmark"></span>\
+                                    </label>\
+                                </th>\
+                                <td class="col-9">'+ response.data.document[response.data.document.length - 1].name + '</td>\
+                                <td class="col-2 text-right" scope="col">\
+                                    <a class="btn btn-success btn-sm" href="'+ response.data.document[response.data.document.length - 1].path + '" download>İndir</a>\
+                                </td>\
+                            </tr >';
+            }
+            else {
+                toastr.error(response.message, "Hata");
+            }
+        });
+
+        // Setup the buttons for all transfers
+        // The "add files" button doesn't need to be setup because the config
+        // `clickable` has already been specified.
+        document.querySelector("#actions .start").onclick = function () {
+            myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
+        };
+        document.querySelector("#actions .cancel").onclick = function () {
+            myDropzone.removeAllFiles(true);
+        };
+    });
+
+
+
+</script>

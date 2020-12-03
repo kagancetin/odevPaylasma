@@ -1,0 +1,21 @@
+{{#if error}}
+<script>
+    $(function () {
+        toastr.error('{{ error }}', 'Hata!');
+    });
+</script>
+{{/if}}
+{{#if success}}
+<script>
+    $(function () {
+        toastr.success('{{ success }}', 'Başarılı');
+    });
+</script>
+{{/if}}
+{{#if warning}}
+<script>
+    $(function () {
+        toastr.warning('{{ warning }}', 'Dikkat!');
+    });
+</script>
+{{/if}}

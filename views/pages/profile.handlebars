@@ -1,0 +1,89 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Profil</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Anasayfa</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profilim</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-row comment-row">
+                        <div class="logo-container" style="width:90px">
+                            <img src="{{userInfo.profilPhoto}}" alt="user" class="">
+                        </div>
+
+                        <div class="comment-text active w-100">
+                            <h6 class="font-medium">{{userInfo.fullName}} (
+                                {{#ifCond userInfo.type '==' 0}}
+                                Yönetici
+                                {{/ifCond}}
+                                {{#ifCond userInfo.type '==' 1}}
+                                Öğrenci
+                                {{/ifCond}}
+                                )</h6>
+                            <span class="m-b-15 d-block">E-Mail: {{userInfo.email}}</span>
+                            <span class="m-b-15 d-block">Telefon Numarası: {{userInfo.phoneNumber}}</span>
+
+                            <div class="comment-footer">
+
+                                {{#unless  userInfo.superAdmin }}
+                                {{#ifCond userActive.username '!=' userInfo.username }}
+                                <button type="button" class="btn btn-cyan btn-sm" data-toggle="modal"
+                                    data-target="#updateUser">Kullanıcıyı Düzenle</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#removeUser">Kullanıcıyı Sil</button>
+                                {{else}}
+                                {{#ifCond userType '==' 0}}
+                                <button type="button" class="btn btn-cyan btn-sm" data-toggle="modal"
+                                    data-target="#updateUser">Kullanıcıyı Düzenle</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#removeUser">Kullanıcıyı Sil</button>
+                                {{/ifCond}}
+                                {{/ifCond}}
+                                {{/unless}}
+
+                                {{#if userInfo}}
+                                {{> user/_userProfileUpdateModal }}
+                                {{> user/_userProfileRemoveModal }}
+                                {{/if}}
+
+                                {{#ifCond userInfo.username '==' userActive.username}}
+                                <div class="float-right">
+                                    <button type="button" onclick="window.location.href='/settings'"
+                                        class="btn btn-cyan btn-sm">Profilimi
+                                        Düzenle</button>
+                                </div>
+                                {{/ifCond}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{> _footer}}
+</div>
+</div>
+{{> _mainScripts}}
+
+<!-- Phone Number input-mask
+<script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+<script src="/dist/js/pages/mask/mask.init.js"></script>
+
+-->
