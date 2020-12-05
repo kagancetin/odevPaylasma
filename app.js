@@ -20,7 +20,7 @@ var User = require("./model/User");
 
 // MongoDB Connection
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/zekicetin", {
+mongoose.connect("mongodb://localhost:27017/odevPaylasma", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -119,9 +119,11 @@ app.use(passport.session());
 //Global - Res.Locals
 app.use((req, res, next) => {
   
-  res.locals.error = req.flash("error");
-  res.locals.success = req.flash("success");
-  res.locals.warning = req.flash("warning");
+  res.locals.flashMessages =
+    {error: req.flash("error"),
+    success: req.flash("success"),
+    warning: req.flash("warning")}
+  
   if(req.user){
     res.locals.userActive={
       _id: req.user._id,

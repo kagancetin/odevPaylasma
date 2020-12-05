@@ -1,13 +1,13 @@
 module.exports = {
   loginValidation: (username, password) => {
-    let errors = "";
+    let errors= [];
     
     if (username === "") {
-      errors = "Kullanıcı adınızı giriniz!" ;
+      errors.push("Kullanıcı adınızı giriniz!");
     }
 
     else if (password === "") {
-      errors = "Şifre giriniz!" ;
+      errors.push("Şifre giriniz!");
     }
     return errors;
   },

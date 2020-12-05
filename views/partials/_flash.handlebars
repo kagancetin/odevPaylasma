@@ -1,21 +1,21 @@
-{{#if error}}
+{{#if flashMessages.error}}
 <script>
     $(function () {
-        toastr.error('{{ error }}', 'Hata!');
+        toastr.error('{{ flashMessages.error }}', 'Hata!');
     });
 </script>
 {{/if}}
-{{#if success}}
+{{#if flashMessages.success}}
 <script>
     $(function () {
-        toastr.success('{{ success }}', 'Başarılı');
+        toastr.success('{{ flashMessages.success }}', 'Başarılı');
     });
 </script>
 {{/if}}
-{{#if warning}}
+{{#if flashMessages.warning}}
 <script>
     $(function () {
-        toastr.warning('{{ warning }}', 'Dikkat!');
+        toastr.warning('{{ flashMessages.warning }}', 'Dikkat!');
     });
 </script>
 {{/if}}

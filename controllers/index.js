@@ -23,7 +23,7 @@ module.exports = {
     const password = req.body.password;
 
     const validationErrors = formValidation.loginValidation(username, password);
-
+    console.log(validationErrors);
     if (validationErrors.length > 0) {
       res.locals.loginError = validationErrors;
       return res.render("pages/login", {layout: 'loginLayout.handlebars',username,password});
@@ -38,33 +38,11 @@ module.exports = {
       failureFlash: true,
       successFlash: true,
     })(req, res, next);
-    /*
-    const username = req.body.username;
-    const password = req.body.password;
-
-    const validationErrors = formValidation.loginValidation(username, password);
-    if (validationErrors.length > 0) {
-      return res.render("pages/login", {
-        username: username,
-        password: password,
-        errors: validationErrors,
-      });
-    }
-    
-    const newUser = new User({
-      username: username,
-      password: password,
-    });
-    newUser.save().then(() => {
-      req.flash("flashSuccess","Kullanıcı Başarıyla Eklendi.")
-      res.redirect("/");
-    }).catch(err => console.log(err)); 
-    */
   },
   settings: async (req, res, next) => {
     if(req.user){
-      User.findOne({ username: req.user.username },{ "password": 0 }).exec((err, user) => {
-        res.render("pages/settings" ,user);
+      User.findOne({ username: req.user.username },{ "password": 0 }).exec((err, doc) => {
+        res.render("pages/settings", {data: doc.toJSON()});
       });
     }
   },

@@ -1,5 +1,5 @@
 module.exports = {
-  authheck: (req, res, next) => {
+  authCheck: (req, res, next) => {
     if (req.isAuthenticated()) {
       return next();
     } else {

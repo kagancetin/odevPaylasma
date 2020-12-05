@@ -119,6 +119,12 @@ module.exports = {
           }},(err,doc)=>{
             if(err) throw err;
             else console.log(doc);
+          });
+        User.updateOne({_id:userId},
+          {
+            $push:{
+              downloadedHomeworks:homeworkId
+            }
           })
       }
     })

@@ -39,7 +39,11 @@ const UserSchema = new Schema({
   },
   superAdmin:{
     type: Boolean
-  }
+  },
+  downloadedHomeworks: [{
+    type: Schema.Types.ObjectId,
+    ref: "Homework"
+  }]
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -13,7 +13,6 @@
         </div>
     </div>
 </div>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-sm-12">
@@ -26,7 +25,7 @@
                                 Soyad</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="fullName" name="fullName"
-                                    value="{{{fullName}}}" placeholder="Ad soyad">
+                                    value="{{data.fullName}}" placeholder="Ad soyad">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -34,13 +33,13 @@
                                 Adı</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="username" name="username"
-                                    value="{{{username}}}" placeholder="Kullanıcı Adı">
+                                    value="{{data.username}}" placeholder="Kullanıcı Adı">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="email" class="col-sm-3 text-right control-label col-form-label">E-mail</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="email" name="email" value="{{{email}}}"
+                                <input type="text" class="form-control" id="email" name="email" value="{{data.email}}"
                                     placeholder="E-mail">
                             </div>
                         </div>
@@ -48,10 +47,11 @@
                             <label for="phoneNumber" class="col-sm-3 text-right control-label col-form-label">Telefon
                                 Numarası</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control phone-inputmask" id="phoneNumber"
-                                    name="phoneNumber" value="{{{phoneNumber}}}" placeholder="Telefon Numarası">
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                    value="{{data.phoneNumber}}" placeholder="Telefon Numarası">
                             </div>
                         </div>
+
 
                     </div>
                     <div class="border-top">
@@ -150,7 +150,7 @@
                         <h4 class="card-title">Profil Resmimi Değiştir</h4>
                         <div class="p-3 text-center">
                             <div class="logo-container" style="width:44%; min-width:150px;">
-                                <img src="{{userActive.profilPhoto}}" alt="user" class="">
+                                <img src="{{data.profilPhoto}}" alt="user" class="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -174,7 +174,6 @@
         </div>
     </div>
 </div>
-
 
 {{> _footer}}
 </div>
