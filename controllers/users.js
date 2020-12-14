@@ -6,10 +6,15 @@ const ManageDocumentHelper = require("../helpers/manageDocument");
 
 module.exports = {
   users: async (req, res, next) => {
+    let data = await UserFactories.getAllUsersWithoutPassword();
+    let allUsers = data.map(p=>p.toJSON());
+    res.render("pages/users",{allUsers});
+    /*
     UserFactories.getAllUsers((err,users)=>{
       if(err) throw err;
       else res.render("pages/users",{users});
     });
+    */
   },
   usersProfile: async (req, res, next) => {
     UserFactories.getUserByUsername(req.params.username,(err,userInfo)=>{

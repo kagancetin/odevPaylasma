@@ -1,5 +1,5 @@
-<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true ">
+<div class="modal fade" id="updateUser{{_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document ">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,7 +9,7 @@
                 </button>
             </div>
             <form class="form-horizontal" method="post"
-                action="/users/updateInfo/{{userInfo._id}}?ref=users/profile/{{userInfo.username}}">
+                action="/users/updateInfo/{{userInfo._id}}?ref=users{{#unless _id}}/profile/{{userInfo.username}}{{/unless}}">
                 <div class="modal-body">
                     <div class="card-body">
                         <div class="form-group row">
@@ -47,13 +47,13 @@
                             <label class="col-sm-3 text-right control-label col-form-label">Kullanıcı Tipi</label>
                             <div class="col-sm-9">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="type0" value="0"
-                                        {{#ifCond userInfo.type '==' 0}} checked {{/ifCond}} name="type">
+                                    <input type="radio" class="custom-control-input" id="type0" value="0" {{#ifCond
+                                        userInfo.type '==' 0}} checked {{/ifCond}} name="type">
                                     <label class="custom-control-label" for="type0">Yönetici</label>
                                 </div>
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="type1" value="1"
-                                        {{#ifCond userInfo.type '==' 1}} checked {{/ifCond}} name="type">
+                                    <input type="radio" class="custom-control-input" id="type1" value="1" {{#ifCond
+                                        userInfo.type '==' 1}} checked {{/ifCond}} name="type">
                                     <label class="custom-control-label" for="type1">Öğrenci</label>
                                 </div>
                             </div>

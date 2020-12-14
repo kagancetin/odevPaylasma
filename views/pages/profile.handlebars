@@ -38,7 +38,7 @@
 
                             <div class="comment-footer">
 
-                                {{#unless  userInfo.superAdmin }}
+                                {{#unless userInfo.superAdmin }}
                                 {{#ifCond userActive.username '!=' userInfo.username }}
                                 <button type="button" class="btn btn-cyan btn-sm" data-toggle="modal"
                                     data-target="#updateUser">Kullanıcıyı Düzenle</button>

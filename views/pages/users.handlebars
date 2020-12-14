@@ -17,59 +17,86 @@
 
     <div class="card">
         <div class="card-body">
+
             <h5 class="card-title">Kullanıcı Listesi</h5>
+
             <div class="table-responsive">
-                <table id="userList" class="table table-striped table-bordered">
+                <table id="userList" class="table table-bordered">
                     <thead>
 
                         <tr>
-                            <th></th>
-                            <th>İsim</th>
-                            <th>E-Mail</th>
-                            <th>Telefon No</th>
-                            <th>Kullanıcı Adı</th>
-                            <th>Kullanıcı Tipi</th>
-                            <th>Son Giriş</th>
+                            <th style="border-bottom:none;border-top:none"></th>
+                            <th style="border-bottom:none;border-top:none">İsim</th>
+                            <th style="border-bottom:none;border-top:none">E-Mail</th>
+                            <th style="border-bottom:none;border-top:none">Telefon No</th>
+                            <th style="border-bottom:none;border-top:none">Kullanıcı Adı</th>
+                            <th style="border-bottom:none;border-top:none">Kullanıcı Tipi</th>
+                            <th style="border-bottom:none;border-top:none">Son Giriş</th>
+                            <th style="border-bottom:none;border-top:none">İşlemler</th>
                         </tr>
-                        </a>
+
                     </thead>
                     <tbody>
-
-                        {{#each users}}
-
+                        {{#each allUsers}}
                         <tr>
-                            <td><a href="/users/profile/{{username}}">
+                            <td><a href="/users/profile/{{this.username}}">
                                     <div class="logo-container" style="width:40px">
-                                        <img src="{{profilPhoto}}" alt="user" class="">
+                                        <img src="{{this.profilPhoto}}" alt="user" class="">
                                     </div>
                                 </a></td>
-                            <td><a href="/users/profile/{{username}}">{{fullName}}</a></td>
-                            <td>{{email}}</td>
-                            <td>{{phoneNumber}}</td>
-                            <td>{{username}}</td>
+                            <td><a href="/users/profile/{{this.username}}">{{this.fullName}}</a></td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.phoneNumber}}</td>
+                            <td>{{this.username}}</td>
                             <td>
-                                {{#ifCond type '==' 0}}
+                                {{#ifCond this.type '==' 0}}
                                 Yönetici
                                 {{/ifCond}}
-                                {{#ifCond type '==' 1}}
+                                {{#ifCond this.type '==' 1}}
                                 Öğrenci
                                 {{/ifCond}}
                             </td>
                             <td>eklenecek</td>
+                            <td>
+                                {{#unless this.superAdmin }}
+                                {{#ifCond ../userActive.username '!=' this.username }}
+                                <span data-toggle="modal" data-target="#updateUser{{../this._id}}">
+                                    <a data-toggle="tooltip" data-placement="top" title=""
+                                        data-original-title="Düzenle">
+                                        <i class="m-r-10 mdi mdi-account-edit h4"></i>
+                                    </a>
+                                </span>
+                                <span data-toggle="modal" data-target="#removeUser{{../this._id}}">
+                                    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
+                                        <i class="m-r-10 mdi mdi-delete h4"></i>
+                                    </a>
+                                </span>
+                                {{else}}
+                                {{#ifCond userType '==' 0}}
+                                <span data-toggle="modal" data-target="#updateUser{{../this._id}}">
+                                    <a data-toggle="tooltip" data-placement="top" title=""
+                                        data-original-title="Düzenle">
+                                        <i class="m-r-10 mdi mdi-account-edit h4"></i>
+                                    </a>
+                                </span>
+                                <span data-toggle="modal" data-target="#removeUser{{../this._id}}">
+                                    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
+                                        <i class="m-r-10 mdi mdi-delete h4"></i>
+                                    </a>
+                                </span>
+                                {{/ifCond}}
+                                {{/ifCond}}
+                                {{/unless}}
+
+                                {{#if this }}
+                                {{> user/_userProfileUpdateModal userInfo=this _id=this._id}}
+                                {{> user/_userProfileRemoveModal userInfo=this _id=this._id}}
+                                {{/if}}
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>İsim</th>
-                            <th>E-Mail</th>
-                            <th>Telefon No</th>
-                            <th>Kullanıcı Adı</th>
-                            <th>Kullanıcı Tipi</th>
-                            <th>Son Giriş</th>
-                        </tr>
-                    </tfoot>
+
                 </table>
             </div>
 
@@ -86,6 +113,7 @@
 </div>
 </div>
 {{> _mainScripts }}
+
 <script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
 <script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
@@ -93,4 +121,30 @@
     /****************************************
      *       Basic Table                   *
      ****************************************/
-    $('#userList').DataTable();</script>
+    $('#userList').DataTable(
+        {
+            "aaSorting": [],
+            "columnDefs": [
+                { "bSortable": false, "aTargets": [0, 6, 7] }
+            ],
+            "language": {
+                "sProcessing": "İşleniyor...",
+                "sLengthMenu": "Sayfada _MENU_ Kayıt Göster",
+                "sZeroRecords": "Eşleşen Kayıt Bulunmadı",
+                "sInfo": "  _TOTAL_ Kayıttan _START_ - _END_ Arası Kayıtlar",
+                "sInfoEmpty": "Kayıt Yok",
+                "sInfoFiltered": "( _MAX_ Kayıt İçerisinden Bulunan)",
+                "sInfoPostFix": "",
+                "sSearch": "Bul:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "İlk",
+                    "sPrevious": "Önceki",
+                    "sNext": "Sonraki",
+                    "sLast": "Son"
+                }
+            }
+        }
+    );
+
+</script>

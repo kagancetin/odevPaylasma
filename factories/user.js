@@ -2,6 +2,16 @@ const bcrypt = require("bcryptjs");
 const { use } = require("passport");
 const User = require("../model/User");
 module.exports = {
+  getAllUsersWithoutPassword: ()=> {
+    return User.find({},{"password": 0});
+  },
+  getUserByUsernameWithoutPassword: (username)=> {
+    return User.findOne({username}, {"password":0});
+  },
+  getUserByIdWithoutPassword: (_id)=> {
+    return User.findOne({_id}, {"password":0});
+  },
+  ////////////////////////////
   getAllUsers: (result) => {
     User.find({},{ "password": 0 }).exec((err,users)=>{
       result(err,users.map(users => users.toJSON()));
@@ -9,6 +19,7 @@ module.exports = {
   },
   getUserByUsername: (username,result) =>{
     User.findOne({ username },{ "password": 0 }).exec((err, user) => {
+      console.log(user);
       result(err,user.toJSON());
     });
   }, 
