@@ -43,8 +43,42 @@
                                 <span class="text-muted float-right">En geç teslim tarihi: {{lastDate}}</span>
                                 <a href="/manage/editHomework/{{_id}}" type="button"
                                     class="btn btn-primary btn-sm">Ödevi Düzenle</a>
-                                <a href="" type="button" class="btn btn-warning btn-sm">Ödevi Gizle</a>
-                                <a href="" type="button" class="btn btn-danger btn-sm">Ödevi Sil</a>
+                                <a href="/manage/hideHomework/{{_id}}" type="button"
+                                    class="btn btn-warning btn-sm">{{#if hide}}Gizliliği Kaldır{{else}}Ödevi
+                                    Gizle{{/if}}</a>
+
+                                <span data-toggle="modal" data-target="#removeHomework{{_id}}">
+                                    <a style="color: #fff;" type="button" class="btn btn-danger btn-sm">Ödevi Sil</a>
+                                </span>
+
+                                <div class="modal fade" id="removeHomework{{_id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true ">
+                                    <div class="modal-dialog" role="document ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Kullanıcıyı Sil</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true ">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>{{name}} isimli ödevi silmek istediğinize emin
+                                                    misiniz?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    İptal
+                                                </button>
+                                                <form class="form-horizontal" method="post"
+                                                    action="/manage/removeHomework/{{_id}}">
+                                                    <button type="Submit" class="btn btn-primary">Eminim</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -55,66 +89,6 @@
             {{else}}
             <p>Ödev bulunmamaktadır.</p>
             {{/if}}
-
-        </div>
-
-
-        <div class="col-md-12 d-none">
-            <div class="card">
-                <div id="actions" class="card-body">
-                    <span class="btn btn-success fileinput-button dz-clickable">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        <span>Dosya Ekle</span>
-                    </span>
-                    <button type="submit" class="btn btn-primary start">
-                        <i class="glyphicon glyphicon-upload"></i>
-                        <span>Bütün Dosyaları Yükle</span>
-                    </button>
-                    <button type="reset" class="btn btn-warning cancel">
-                        <i class="glyphicon glyphicon-ban-circle"></i>
-                        <span>Tümünü İptal Et</span>
-                    </button>
-                </div>
-                <div class="comment-widgets scrollable" class="files" id="previews">
-
-                    <div id="template" class="file-row d-flex flex-row comment-row m-t-0">
-                        <!-- This is used as the file preview template -->
-                        <div class="p-2">
-                            <span class="preview"><img data-dz-thumbnail /></span>
-                        </div>
-                        <div class="comment-text w-100">
-                            <div>
-                                <p class="name font-medium" data-dz-name></p>
-                                <strong class="error text-danger" data-dz-errormessage></strong>
-                            </div>
-                            <div>
-                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                    aria-valuemax="100" aria-valuenow="0">
-                                    <div class="progress-bar progress-bar-success" style="width:0%;"
-                                        data-dz-uploadprogress>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="comment-footer">
-                                <span class="text-muted float-right size" data-dz-size></span>
-                                <button class="btn btn-success btn-sm start">
-                                    <i class="glyphicon glyphicon-upload"></i>
-                                    <span>Başla</span>
-                                </button>
-                                <button data-dz-remove class="btn btn-danger btn-sm cancel">
-                                    <i class="glyphicon glyphicon-ban-circle"></i>
-                                    <span>İptal Et</span>
-                                </button>
-                                <button data-dz-remove class="btn btn-cyan btn-sm delete">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                    <span>Listeden Kaldır</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -133,4 +107,3 @@
 {{/section}}
 
 <script src="/assets/libs/dropzone/dist/dropzone.js"></script>
-<script src="/dist/js/pages/upload.js"></script>

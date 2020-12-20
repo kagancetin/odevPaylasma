@@ -25,3 +25,32 @@
 .datepicker {
   z-index: 99999 !important;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "\f07c";
+  font-family: "Font Awesome 5 Free";
+}
+
+p input {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: none;
+  width: auto;
+  color: #3e5569;
+  font-weight: bold;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.table td a,
+.table th a {
+  color: #3e5569;
+}
+.table td a:hover {
+  color: #27a9e3;
+}

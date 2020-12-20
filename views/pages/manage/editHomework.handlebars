@@ -19,7 +19,8 @@
         <!-- Column -->
         <div class="col-12">
             <div class="card">
-                <form class="form-horizontal" id="formAddHomework" action="/manage/editHomework" method="POST">
+                <form class="form-horizontal" id="formAddHomework" action="/manage/editHomework/{{homework._id}}"
+                    method="POST">
                     <div class="card-body">
                         <h4 class="card-title">Ödev Bilgileri</h4>
                         <div class="form-group row">
@@ -51,12 +52,47 @@
                     <div class="border-top">
                         <div class="card-body">
                             <button type="submit" class="btn btn-primary">Değiştir</button>
+
+
+
+                            <span data-toggle="modal" data-target="#removeHomework">
+                                <button type="button" class="btn btn-danger">Ödevi Sil</button>
+                            </span>
+
+
                         </div>
                     </div>
                 </form>
+
+
+                <div class="modal fade" id="removeHomework" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true ">
+                    <div class="modal-dialog" role="document ">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Kullanıcıyı Sil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true ">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{homework.name}} isimli ödevi silmek istediğinize emin
+                                    misiniz?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
+                                    İptal
+                                </button>
+                                <form class="form-horizontal" method="post"
+                                    action="/manage/removeHomework/{{homework._id}}">
+                                    <button type="Submit" class="btn btn-primary">Eminim</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        {{#if homework.document}}
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -66,32 +102,36 @@
                     <table class="table">
                         <thead class="thead-light">
                             <tr class="d-flex">
-                                <th class="col-1">Seç</th>
-                                <th class="col-9">Dosya Adı</th>
-                                <th class="col-2"></th>
+                                <th style="border-bottom:none;border-top:none" class="col-10">Dosya Adı</th>
+                                <th style="border-bottom:none;border-top:none" class="col-2 text-right">İşlemler</th>
                             </tr>
                         </thead>
                         <tbody id="documentList" class="customtable">
+                            {{#if homework.document}}
                             {{#each homework.document}}
                             <tr class="d-flex">
-                                <th class="col-1">
-                                    <label class="customcheckbox">
-                                        <input type="checkbox" class="listCheckbox">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </th>
-                                <td class="col-9">{{name}}</td>
+                                <td class="col-10">{{name}}</td>
                                 <td class="col-2 text-right" scope="col">
-                                    <a class="btn btn-success btn-sm" href="{{path}}" download>İndir</a>
+                                    <a href="{{path}}" download data-toggle="tooltip" data-placement="top" title=""
+                                        data-original-title="İndir">
+                                        <i class="m-r-10 mdi mdi-download h4 mx-1"></i>
+                                    </a>
+                                    <a href="/manage/manageHomework/removeDocumentHomework/{{../homework._id}}/{{_id}}"
+                                        data-toggle="tooltip" data-placement="top" title=""
+                                        data-original-title="Dökümanı Sil">
+                                        <i class="m-r-10 mdi mdi-delete h4 mx-1"></i>
+                                    </a>
                                 </td>
+
                             </tr>
                             {{/each}}
+                            {{/if}}
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        {{/if}}
+
         <div class="col-12">
             <div class="card">
                 <div id="actions" class="card-body">
@@ -150,11 +190,41 @@
             </div>
         </div>
 
-
         {{#if homework.downloader}}
-        {{#each homework.downloader}}
-        <p>{{username}}</p>
-        {{/each}}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title m-b-0">Ödevi İndiren Öğrenciler</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr class="d-flex">
+                                <th style="border-bottom:none;border-top:none" class="col-6">Adı</th>
+                                <th style="border-bottom:none;border-top:none" class="col-3">İndirme Tarihi
+                                </th>
+                                <th style="border-bottom:none;border-top:none" class="col-3">Tamamlama Tarihi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="" class="customtable">
+                            {{#each homework.downloader}}
+                            <tr class="d-flex">
+                                <td class="col-6">{{user.username}}</td>
+                                <td class="col-3">{{downloadDate}}</td>
+
+                                <td class="col-3">{{#if done}}{{done}}{{else}}Tamamlanmadı{{/if}}</td>
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
         {{/if}}
 
     </div>
@@ -215,23 +285,24 @@
         });
 
         myDropzone.on("success", function (file, response) {
-            console.log(response.data);
             if (response.data) {
                 toastr.success(response.message, 'Başarılı');
                 var documentList = document.getElementById("documentList");
-                console.log(response.data.document[-1]);
-                documentList.innerHTML += '<tr class="d-flex">\
-                                <th class="col-1">\
-                                    <label class="customcheckbox">\
-                                        <input type="checkbox" class="listCheckbox">\
-                                        <span class="checkmark"></span>\
-                                    </label>\
-                                </th>\
-                                <td class="col-9">'+ response.data.document[response.data.document.length - 1].name + '</td>\
+                documentList.innerHTML +=
+                    '<tr class="d-flex">\
+                                <td class="col-10">'+ response.data.document[response.data.document.length - 1].name + '</td>\
                                 <td class="col-2 text-right" scope="col">\
-                                    <a class="btn btn-success btn-sm" href="'+ response.data.document[response.data.document.length - 1].path + '" download>İndir</a>\
+                                    <a href="'+ response.data.document[response.data.document.length - 1].path + '" download data-toggle="tooltip" data-placement="top" title=""\
+                                        data-original-title="İndir">\
+                                        <i class="m-r-10 mdi mdi-download h4 mx-1"></i>\
+                                    </a>\
+                                    <a href="/manage/manageHomework/removeDocumentHomework/'+ response.data._id + '/' + response.data.document[response.data.document.length - 1]._id + '"\
+                                        data-toggle="tooltip" data-placement="top" title=""\
+                                        data-original-title="Dökümanı Sil">\
+                                        <i class="m-r-10 mdi mdi-delete h4 mx-1"></i>\
+                                    </a>\
                                 </td>\
-                            </tr >';
+                            </tr>';
             }
             else {
                 toastr.error(response.message, "Hata");

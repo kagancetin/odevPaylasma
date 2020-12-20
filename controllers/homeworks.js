@@ -8,8 +8,8 @@ const DateConvert = require("../helpers/dateConvert");
 
 module.exports = {
     getHomeworksPage: async (req, res, next) => {
-      let docs = await HomeworkFactory.getAllByDownloader(req.user._id);
-      let complatedDocs = await HomeworkFactory.getAllByDownloaderComplate(req.user._id);
+      let docs = await HomeworkFactory.getAllByDownloaderWithoutHide(req.user._id);
+      let complatedDocs = await HomeworkFactory.getAllByDownloaderComplateWithoutHide(req.user._id);
       let homeworks = [];
       let complatedHomeworks = [];
       for(i = 0; i<docs.length; i++){
@@ -89,8 +89,4 @@ module.exports = {
         res.redirect('/homeworks');
       })
     }
-
-
-
-      
 }

@@ -39,11 +39,13 @@
                     <tbody>
                         {{#each allUsers}}
                         <tr>
-                            <td><a href="/users/profile/{{this.username}}">
+                            <td>
+                                <a href="/users/profile/{{this.username}}">
                                     <div class="logo-container" style="width:40px">
                                         <img src="{{this.profilPhoto}}" alt="user" class="">
                                     </div>
-                                </a></td>
+                                </a>
+                            </td>
                             <td><a href="/users/profile/{{this.username}}">{{this.fullName}}</a></td>
                             <td>{{this.email}}</td>
                             <td>{{this.phoneNumber}}</td>
@@ -60,38 +62,15 @@
                             <td>
                                 {{#unless this.superAdmin }}
                                 {{#ifCond ../userActive.username '!=' this.username }}
-                                <span data-toggle="modal" data-target="#updateUser{{../this._id}}">
-                                    <a data-toggle="tooltip" data-placement="top" title=""
-                                        data-original-title="Düzenle">
-                                        <i class="m-r-10 mdi mdi-account-edit h4"></i>
-                                    </a>
-                                </span>
-                                <span data-toggle="modal" data-target="#removeUser{{../this._id}}">
-                                    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
-                                        <i class="m-r-10 mdi mdi-delete h4"></i>
-                                    </a>
-                                </span>
+                                {{> actions data=../this}}
                                 {{else}}
                                 {{#ifCond userType '==' 0}}
-                                <span data-toggle="modal" data-target="#updateUser{{../this._id}}">
-                                    <a data-toggle="tooltip" data-placement="top" title=""
-                                        data-original-title="Düzenle">
-                                        <i class="m-r-10 mdi mdi-account-edit h4"></i>
-                                    </a>
-                                </span>
-                                <span data-toggle="modal" data-target="#removeUser{{../this._id}}">
-                                    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
-                                        <i class="m-r-10 mdi mdi-delete h4"></i>
-                                    </a>
-                                </span>
+                                {{> actions data=../this}}
                                 {{/ifCond}}
                                 {{/ifCond}}
                                 {{/unless}}
 
-                                {{#if this }}
-                                {{> user/_userProfileUpdateModal userInfo=this _id=this._id}}
-                                {{> user/_userProfileRemoveModal userInfo=this _id=this._id}}
-                                {{/if}}
+
                             </td>
                         </tr>
                         {{/each}}
@@ -104,6 +83,32 @@
     </div>
 
 </div>
+
+{{#*inline 'actions'}}
+<span data-toggle="modal" data-target="#resPassUser{{data._id}}">
+    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Şifre Sıfırla"
+        onclick="generatePassword('{{data._id}}')">
+        <i class="m-r-10 mdi mdi-key h4 mx-1"></i>
+    </a>
+</span>
+<span data-toggle="modal" data-target="#updateUser{{data._id}}">
+    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Düzenle">
+        <i class="m-r-10 mdi mdi-account-edit h4 mx-1"></i>
+    </a>
+</span>
+<span data-toggle="modal" data-target="#removeUser{{data._id}}">
+    <a data-toggle="tooltip" data-placement="top" title="" data-original-title="Sil">
+        <i class="m-r-10 mdi mdi-delete h4 mx-1"></i>
+    </a>
+</span>
+
+{{> user/_userProfileResetPasswordModal userInfo=data _id=data._id}}
+{{> user/_userProfileUpdateModal userInfo=data _id=data._id}}
+{{> user/_userProfileRemoveModal userInfo=data _id=data._id}}
+
+
+
+{{/inline}}
 
 
 
@@ -146,5 +151,18 @@
             }
         }
     );
+
+    function generatePassword(id) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        var newPassword = document.getElementById('newPassword' + id);
+        for (var i = 0; i < 6; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        newPassword.value = result;
+
+
+    }
 
 </script>

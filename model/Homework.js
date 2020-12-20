@@ -20,6 +20,10 @@ const HomeworkSchema = new Schema({
     lastDate: {
         type: Date
     },
+    hide: {
+        type: Boolean,
+        default: false
+    },
     document:[{
         path: {type: String},
         name: {type: String}

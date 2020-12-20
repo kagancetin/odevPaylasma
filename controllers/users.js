@@ -31,12 +31,38 @@ module.exports = {
       req.flash("error",err);
     }
     else req.flash("success",result);
-    res.redirect('/'+req.query.ref); 
+    if(req.query.ref == 'users'||req.query.ref == 'settings'){
+      res.redirect('/'+req.query.ref); 
+    }else{
+      res.redirect('/users/profile/'+req.body.username);
+    }
     });
+  },
+  resetPassword: async (req, res, next) => {
+    let id =  req.params.id;
+
+    bcrypt.genSalt(10, function (err, salt) {
+      bcrypt.hash(req.body.newPassword, salt, async function (err, hash) {
+        if (err) throw err;
+        User.findByIdAndUpdate(id, {
+          password: hash,
+        },(err, doc)=>{
+          if(err){
+            req.flash("error","Bir hata oluştu.");
+            res.redirect("/users");
+          }
+          if(doc){
+            let message = doc.fullName + " kullanıcısının şifresi başarı ile sıfırlanmıştır."
+            req.flash("success", message);
+            res.redirect("/users");
+          }
+        })
+      });
+    });
+
   },
   updateProfilPhoto: async(req, res, next) => {
     ManageDocumentHelper.uploadFile(req,(err,message,result)=>{
-      console.log(result);
       if(err){
         req.flash("error",err);
         res.redirect('/settings');
@@ -84,7 +110,6 @@ module.exports = {
         res.redirect("/settings");
       }
     });
-    
   },
   userAdd: async (req, res, next) => {
     let redata = req.flash("redata");
